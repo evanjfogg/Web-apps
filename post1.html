@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- I have decided to go with a traditional blog post format, except I have integrated a navbar that sticks to the top and stays to the left when scrolling for easier navigation -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.3.0/dist/bootstrap-toc.min.css">
+
+		<title></title>
+	</head>
+
+	<body data-spy="scroll" data-target="#toc">
+
+		<div class="container">
+    <div class="row">
+      <!-- sidebar, which will move to the top on a small screen -->
+      <div class="col-sm-3">
+     <nav id="toc" data-toggle="toc" class="sticky-top" class="text-left"></nav>
+      </div>
+      <!-- main content area -->
+      <div class="col-sm-9">
+      	
+      	<article>
+			<header class="text-center">
+				<a href="#0" class="badge badge-primary">Digital Forensics</a>
+				<h1>Windows Registry Analysis: An Introduction</h1>
+				<div><a href="portfolio.html">Evan Fogg</a></div>
+				<div>Posted on: <time datetime="2020-02-06T17:24">February 6, 2020 at 5:24 PM</time></div>
+			</header>
+			<section class="text-center" id="main">
+				<figure class="figure">
+					<img src="digital2.jpg" class="figure-img img-fluid" alt="Figure image">
+				</figure>
+				<p class="lead"> The Windows Registry, as confusing and complex as it is, can often be a forensic goldmine. More often than not the registry may leave behind a very revealing footprint of the user's actions. In this post I aim to explain how you can begin to use the registry as a powerful forensic tool to potentially aid in investigations.</p>
+				<h1 class="text-left">The Structure of the Windows Registry</h1>
+				<p class="text-left">In order to understand the key paths I aim to showcase in this post, one must first understand the structure of the registry. The registry is composed of user specific "hives" that are stored as files on the disk. They are 5 main hives: HKEY_CLASSES_ROOT, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE, HKEY_USERS, and HKEY_CURRENT_CONFIG. These hives are logically viewed as one directory, and serve as the foundation of the registry.</p>
+				<p class="text-left">The information in the  Windows Registry is organized in a tree-structure with 3 main components: Keys (analogous to directory path), Values (analogous to filename), and Data (analogous to file content). This tree-structure begins with the root keys: HKEY_LOCAL_MACHINE (aka HKLM), HKEY_USERS (aka HKU), HKEY_CURRENT_USER (aka HKCU), HKEY_CURRENT_CONFIG (aka HKCC), and HKEY_CLASSES_ROOT.</p>
+				<h1 class="text-left">Exploring the Registry</h1>
+				<p class="text-left">There are multiple methods to view or edit the registry. One may use the built-in regedit.exe tool to view registry contents live on their PC; however, this tool is not the best for registry forensics as it is primarily used to edit the registry. As such, it does not have the same search functionalities forensic registry explorers may have. The tool I recommend is <a href="https://ericzimmerman.github.io/#!index.md">Eric Zimmerman's Registry Explorer</a>.</p>
+				<h1 class="text-left"> Important Keys to Check</h1>
+				<p class="text-left">In this section I aim to teach you the most common and important places to check. This varies heavily on the context of the investigation, but all of these key locations have the potential to be useful in one way or another in an investigation.</p>
+				<h4 class="text-left">Computer Name</h4>
+				<p class="text-left">The computer name can be found at HKLM\System\CurrentControlSet\
+				Control\Computername</p>
+				<h4 class="text-left">Current Version</h4>
+				<p class="text-left">The current version can be found at HKLM\Software\Microsoft\Windows NT\Currentversion<p>
+				<h4 class="text-left">CPU Info (Vendor, Speed, Etc.)</h4>
+				<p class="text-left">CPU Info can be found at HKLM\System\CurrentControlSet\Enum\ACPI.</p>
+				<h4 class="text-left"> Time Zone Information</h4>
+				<p class="text-left">Time zone information can be found at HKLM\System\CurrentControlSet\Control\TimeZoneInformation.</p>
+				<h4 class="text-left">List of Installed Applications</h4>
+				<p class="text-left">This list can be found at HKLM\Software\Microsoft\Windows\Currentversion\uninstall\{Application_name}</p>
+				<h4 class="text-left">Autorun at System Bootup</h4>
+				<p class="text-left">Programs that are set to autorun on startup can either be in HKLM\Software\Microsoft\Windows\Currentversion\Run or HKLM\Software\Microsoft\Windows\Currentversion\RunOnce depending on whether or not they run multple times.
+				<h4 class="text-left">List of USB Devices</h4>
+				<p class="text-left"> A list of USB devices used on the computer can be found at HKLM\System\CurrentControlSet\Enum\USB or HKLM\System\CurrentControlSet\Enum\USBSTOR if looking specifically for storage devices.
+
+			</section>
+
+			<section class="text-center">
+			<h3 class="text-left">About the Author</h3>
+
+        	<img align="left" src='profile1.png' class='img-fluid'>
+
+        	<br><br><br><br><br><br><br><br><br>
+
+        	<h4 class="text-left" id='my-name'>Evan Fogg</h4>
+
+        	<P class="text-left"> Evan Fogg is currently a student pursuing his Bachelor's Degree in Computer Science at the University of New Orleans.</p>
+        	</section>
+
+
+		</article>
+
+      </div>
+    </div>
+  </div>
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.3.0/dist/bootstrap-toc.min.js"></script>
+
+	</body>
+</html>
